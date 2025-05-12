@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [pokemon, setPokemon] = useState([]);
+
+  useEffect(() => {
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
+      .then(res => res.json())
+      .then(data => {
+        Promise.all(data.results.map(p =>
+          fetch(p.url).then(res => res.json())
+        )).then(pokemonDetails => setPokemon(pokemonDetails));
+      });
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>Pokémon Lijst</h1>
+      <div className="pokemon-grid">
+        {pokemon.map(p => (
+          <div className="pokemon-card" key={p.id}>
+            <img src={p.sprites.front_default} alt={p.name} />
+            <h2>{p.name}</h2>
+            <p><strong>ID:</strong> {p.id}</p>
+            <p><strong>Hoogte:</strong> {p.height}</p>
+            <p><strong>Gewicht:</strong> {p.weight}</p>
+            <p><strong>Type(s):</strong> {p.types.map(t => t.type.name).join(', ')}</p>
+            <p><strong>HP:</strong> {p.stats.find(stat => stat.stat.name === 'hp').base_stat}</p>
+            <p><strong>Snelheid:</strong> {p.stats.find(stat => stat.stat.name === 'speed').base_stat}</p>
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
