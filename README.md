@@ -10,4 +10,10 @@ Pokemon_API
 - On terminal go to your directory <cd dossier naam> then <npm install>
 - Then start de server
 
-3.
+3. Link to see your webapp <http://localhost:5174/>
+
+4. Hulpmiddelen voor dit Project.
+- Chatgpt
+- Youtube
+- Canvas
+- Google
