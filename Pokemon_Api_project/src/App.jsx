@@ -5,6 +5,7 @@ function App() {
   const [pokemon, setPokemon] = useState([]);
   const [filteredPokemon, setFilteredPokemon] = useState([]);
   const [selectedType, setSelectedType] = useState('all');
+  const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -20,39 +21,62 @@ function App() {
       });
   }, []);
 
+  // Update type filter
   const handleTypeChange = (event) => {
     const type = event.target.value;
     setSelectedType(type);
+    filterPokemon(searchTerm, type);
+  };
 
-    if (type === 'all') {
-      setFilteredPokemon(pokemon);
-    } else {
-      const filtered = pokemon.filter(p =>
-        p.types.some(t => t.type.name === type)
-      );
-      setFilteredPokemon(filtered);
+  // Update tekstinput
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  // Druk op enter in input
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
     }
   };
 
-    // Functie voor het filteren op basis van de zoekterm
-  const handleSearchChange = (event) => {
-    const search = event.target.value.toLowerCase();
-    setSearchTerm(search);
+  // Zoekknop of enter
+  const handleSearch = () => {
+    const term = searchInput.toLowerCase();
+    setSearchTerm(term);
+    filterPokemon(term, selectedType);
+  };
 
-    setFilteredPokemon(filtered);
+  // Filtering combineren
+  const filterPokemon = (term, type) => {
+    let result = pokemon;
+
+    if (term) {
+      result = result.filter(p => p.name.toLowerCase().includes(term));
+    }
+
+    if (type !== 'all') {
+      result = result.filter(p => p.types.some(t => t.type.name === type));
+    }
+
+    setFilteredPokemon(result);
   };
 
   return (
     <div className="container">
       <h1>Pokémon Lijst</h1>
 
-      <input
-        type="text"
-        placeholder="Zoek Pokémon..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-        className="search-input"
-      />
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Zoek Pokémon..."
+          value={searchInput}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          className="search-input"
+        />
+        <button onClick={handleSearch} className="search-button">Zoek</button>
+      </div>
 
       <select onChange={handleTypeChange} value={selectedType}>
         <option value="all">Alle Type's</option>
