@@ -5,6 +5,7 @@ function App() {
   const [pokemon, setPokemon] = useState([]);
   const [filteredPokemon, setFilteredPokemon] = useState([]);
   const [selectedType, setSelectedType] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
@@ -33,16 +34,31 @@ function App() {
     }
   };
 
+    // Functie voor het filteren op basis van de zoekterm
+  const handleSearchChange = (event) => {
+    const search = event.target.value.toLowerCase();
+    setSearchTerm(search);
+
+    setFilteredPokemon(filtered);
+  };
+
   return (
     <div className="container">
       <h1>Pokémon Lijst</h1>
+
+      <input
+        type="text"
+        placeholder="Zoek Pokémon..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="search-input"
+      />
 
       <select onChange={handleTypeChange} value={selectedType}>
         <option value="all">Alle Type's</option>
         <option value="fire">Vuur</option>
         <option value="water">Water</option>
         <option value="grass">Gras</option>
-        <option value="electric">Elektrisch</option>
       </select>
 
       <div className="pokemon-grid">
