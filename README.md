@@ -7,7 +7,7 @@ Pokemon_API
 - Your new project map and framework is installed
 
 2. Install of dependecies
-- On terminal go to your directory <cd dossier naam> then <npm install>
+- On terminal go to your directory <cd dossier naam + Pokemon_Api_Project> then <npm install>
 - Then start de server
 
 3. Link to see the webapp <http://localhost:5174/>
