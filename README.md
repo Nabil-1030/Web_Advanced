@@ -56,7 +56,7 @@ Dit project is een interactieve single-page webapplicatie gemaakt met React en V
 
 7. Commits & structuur
 
- - Dagelijkse commits met duidelijke commit messages
+   Dagelijkse commits met duidelijke commit messages
    Elke nieuwe feature werd apart gecommit
    Duidelijke mapstructuur (src/, App.jsx, App.css)
 
@@ -66,3 +66,7 @@ Dit project is een interactieve single-page webapplicatie gemaakt met React en V
 - React documentatie
 - Vite documentatie
 - ChatGPT (hulp bij codeuitleg, fouten oplossen, schrijven van CSS)
+ - (https://chatgpt.com/share/6824e766-89b8-8011-bec2-3e473b887123)
+- Youtube: (https://www.youtube.com/watch?v=qabYnswX3FY)
+- Canvas: https://canvas.ehb.be/courses/39258
+- 
