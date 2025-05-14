@@ -23,7 +23,7 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
-/* Zoekinput */
+
 .search-input {
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -32,7 +32,7 @@ h1 {
   min-width: 200px;
 }
 
-/* Zoekknop */
+
 .search-button {
   background-color: #007bff;
   color: white;
@@ -48,7 +48,7 @@ h1 {
   background-color: #0056b3;
 }
 
-/* Dropdowns */
+
 select {
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -57,7 +57,7 @@ select {
   background-color: grey;
 }
 
-/* Pokémon grid */
+
 .pokemon-grid {
   display: flex;
   flex-wrap: wrap;
@@ -65,7 +65,7 @@ select {
   gap: 1.5rem;
 }
 
-/* Kaartjes */
+
 .pokemon-card {
   background-color: grey;
   border: 4px solid #999;

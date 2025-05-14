@@ -1,21 +1,68 @@
 # Web_Advanced
 Pokemon_API
 
-1. Install of Framework React + Vite 
-- On terminal <<npm creat vite@latest "uw project naam" >> then push Enter
-- Chooce Framework React and then chooce Javascript
-- Your new project map and framework is installed
+1. Projectbeschrijving:
 
-2. Install of dependecies
-- On terminal go to your directory <cd dossier naam + Pokemon_Api_Project> then <npm install>
-- Then start de server
+Dit project is een interactieve single-page webapplicatie gemaakt met React en Vite. De applicatie gebruikt de PokéAPI om gegevens van Pokémon op te halen. Gebruikers kunnen Pokémon zoeken, filteren op type, sorteren op statistieken en details bekijken.
 
-3. Link to see the webapp <http://localhost:5174/>
+2. Functionaliteiten
+   
+- Zoeken op naam
+  Filteren op type (vuur, water, gras)
+  Sorteren op type, HP en snelheid
+  Weergave van Pokémon in overzichtelijke kaarten
+  Responsive layout
 
-4. Hulpmiddelen voor dit Project.
-- Chatgpt
-- Youtube
-- Canvas
-- Google
+3. Gebruikte technologieën
 
-5. 
+   React (via Vite)
+   CSS (eigen stylesheet)
+   PokéAPI (https://pokeapi.co/)
+   Git & GitHub (versiebeheer)
+
+4. PokéAPI
+   
+   URL: https://pokeapi.co/
+   Doel: Ophalen van Pokémongegevens (naam, type, stats, afbeelding, enz.)
+
+5. Technische vereisten en waar te vinden
+
+    Vereiste	            Beschrijving	                       Bestand/Lijn
+
+  - API-gebruik	            Ophalen van data via PokéAPI	       App.jsx (regel ±8)
+  - Data filteren	        Filteren op type en zoekterm	       App.jsx (regel ±40–70)
+  - Sorteren van data	    Sorteren op type, HP en snelheid	   App.jsx (regel ±30–40, ±80–100)
+  - Single Page Applicatie	Alles op 1 pagina, geen reloads	       App.jsx
+
+6. Installatiehandleiding
+
+ a. Clone repository
+
+    git clone https://github.com/Web_Advanced.git
+    cd pokemon_api_project
+
+ b. Installeer afhankelijkheid
+
+    npm install
+
+ c. Start de applicatie
+
+    npm run dev
+
+ d. Open in jouw browser
+
+    http://localhost:5173     
+
+
+7. Commits & structuur
+
+ - Dagelijkse commits met duidelijke commit messages
+   Elke nieuwe feature werd apart gecommit
+   Duidelijke mapstructuur (src/, App.jsx, App.css)
+
+8. Gebruikte bronnen
+
+- PokéAPI documentatie
+- React documentatie
+- Vite documentatie
+- ChatGPT (hulp bij codeuitleg, fouten oplossen, schrijven van CSS)
