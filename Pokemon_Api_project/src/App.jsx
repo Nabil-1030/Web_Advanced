@@ -7,6 +7,7 @@ function App() {
   const [selectedType, setSelectedType] = useState('all');
   const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortCriteria, setSortCriteria] = useState('');
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
@@ -21,35 +22,35 @@ function App() {
       });
   }, []);
 
-  // Update type filter
   const handleTypeChange = (event) => {
     const type = event.target.value;
     setSelectedType(type);
-    filterPokemon(searchTerm, type);
+    filterAndSortPokemon(searchTerm, type, sortCriteria);
   };
 
-  // Update tekstinput
   const handleInputChange = (event) => {
     setSearchInput(event.target.value);
   };
 
-  // Druk op enter in input
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       handleSearch();
     }
   };
 
-  // Zoekknop of enter
   const handleSearch = () => {
     const term = searchInput.toLowerCase();
     setSearchTerm(term);
-    filterPokemon(term, selectedType);
+    filterAndSortPokemon(term, selectedType, sortCriteria);
   };
 
-  // Filtering combineren
-  const filterPokemon = (term, type) => {
-    let result = pokemon;
+  const handleSortChange = (criteria) => {
+    setSortCriteria(criteria);
+    filterAndSortPokemon(searchTerm, selectedType, criteria);
+  };
+
+  const filterAndSortPokemon = (term, type, sortBy) => {
+    let result = [...pokemon];
 
     if (term) {
       result = result.filter(p => p.name.toLowerCase().includes(term));
@@ -57,6 +58,24 @@ function App() {
 
     if (type !== 'all') {
       result = result.filter(p => p.types.some(t => t.type.name === type));
+    }
+
+    if (sortBy === "type") {
+      result.sort((a, b) => {
+        const typeA = a.types[0]?.type.name || "";
+        const typeB = b.types[0]?.type.name || "";
+        return typeA.localeCompare(typeB);
+      });
+    } else if (sortBy === "hp") {
+      result.sort((a, b) =>
+        (b.stats.find(stat => stat.stat.name === 'hp')?.base_stat || 0) -
+        (a.stats.find(stat => stat.stat.name === 'hp')?.base_stat || 0)
+      );
+    } else if (sortBy === "speed") {
+      result.sort((a, b) =>
+        (b.stats.find(stat => stat.stat.name === 'speed')?.base_stat || 0) -
+        (a.stats.find(stat => stat.stat.name === 'speed')?.base_stat || 0)
+      );
     }
 
     setFilteredPokemon(result);
@@ -78,12 +97,21 @@ function App() {
         <button onClick={handleSearch} className="search-button">Zoek</button>
       </div>
 
-      <select onChange={handleTypeChange} value={selectedType}>
-        <option value="all">Alle Type's</option>
-        <option value="fire">Vuur</option>
-        <option value="water">Water</option>
-        <option value="grass">Gras</option>
-      </select>
+      <div className="controls">
+        <select onChange={handleTypeChange} value={selectedType}>
+          <option value="all">Alle Type's</option>
+          <option value="fire">Vuur</option>
+          <option value="water">Water</option>
+          <option value="grass">Gras</option>
+        </select>
+
+        <select onChange={(e) => handleSortChange(e.target.value)} className="sort-dropdown" value={sortCriteria}>
+          <option value="">Sorteer op...</option>
+          <option value="type">Type</option>
+          <option value="hp">HP</option>
+          <option value="speed">Snelheid</option>
+        </select>
+      </div>
 
       <div className="pokemon-grid">
         {filteredPokemon.map(p => (
