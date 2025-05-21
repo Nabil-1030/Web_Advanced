@@ -27,18 +27,18 @@ Dit project is een interactieve single-page webapplicatie gemaakt met React en V
 
 5. Technische vereisten en waar te vinden
 
-    Vereiste	            Beschrijving	                       Bestand/Lijn
+    Vereiste	                   Beschrijving	                          Bestand/Lijn
 
-  - API-gebruik	            Ophalen van data via PokéAPI	       App.jsx (regel ±8)
-  - Data filteren	        Filteren op type en zoekterm	       App.jsx (regel ±40–70)
-  - Sorteren van data	    Sorteren op type, HP en snelheid	   App.jsx (regel ±30–40, ±80–100)
-  - Single Page Applicatie	Alles op 1 pagina, geen reloads	       App.jsx
+  - API-gebruik	            Ophalen van data via PokéAPI	          App.jsx (regel ±8)
+  - Data filteren	            Filteren op type en zoekterm	          App.jsx (regel ±40–70)
+  - Sorteren van data	      Sorteren op type, HP en snelheid	       App.jsx (regel ±30–40, ±80–100)
+  - Single Page Applicatie  	Alles op 1 pagina, geen reloads	       App.jsx
 
 6. Installatiehandleiding
 
  a. Clone repository
 
-    git clone https://github.com/Web_Advanced.git
+    git clone https://github.com/Nabil-1030/Web_Advanced.git
     cd pokemon_api_project
 
  b. Installeer afhankelijkheid
@@ -63,10 +63,10 @@ Dit project is een interactieve single-page webapplicatie gemaakt met React en V
 8. Gebruikte bronnen
 
 - PokéAPI documentatie
-- React documentatie
-- Vite documentatie
+- React documentatie : https://react.dev/learn
+- Vite documentatie : https://devdocs.io/vite/guide/index
 - ChatGPT (hulp bij codeuitleg, fouten oplossen, schrijven van CSS)
- - (https://chatgpt.com/share/6824e766-89b8-8011-bec2-3e473b887123)
+  - (https://chatgpt.com/share/6824e766-89b8-8011-bec2-3e473b887123)
 - Youtube: (https://www.youtube.com/watch?v=qabYnswX3FY)
 - Canvas: https://canvas.ehb.be/courses/39258
 - 
