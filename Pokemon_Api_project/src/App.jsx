@@ -9,23 +9,55 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortCriteria, setSortCriteria] = useState('');
 
+  const [favorites, setFavorites] = useState(() => {
+  const stored = localStorage.getItem('favorites');
+  return stored ? JSON.parse(stored) : [];
+});
+
+
+  // Laad favorieten bij opstart
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
+
+  // Sla favorieten op bij wijziging
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  // Haal Pokémon data op bij laden
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
       .then(res => res.json())
       .then(data => {
-        Promise.all(data.results.map(p =>
-          fetch(p.url).then(res => res.json())
-        )).then(pokemonDetails => {
+        Promise.all(
+          data.results.map(p =>
+            fetch(p.url).then(res => res.json())
+          )
+        ).then(pokemonDetails => {
           setPokemon(pokemonDetails);
-          setFilteredPokemon(pokemonDetails);
         });
       });
   }, []);
 
+  // Voer filtering en sortering uit bij wijziging van relevante state
+  useEffect(() => {
+    filterAndSortPokemon(searchTerm, selectedType, sortCriteria);
+  }, [pokemon, searchTerm, selectedType, sortCriteria, favorites]);
+
+  const toggleFavorite = (id) => {
+    setFavorites(prev =>
+      prev.includes(id)
+        ? prev.filter(favId => favId !== id)
+        : [...prev, id]
+    );
+  };
+
   const handleTypeChange = (event) => {
-    const type = event.target.value;
-    setSelectedType(type);
-    filterAndSortPokemon(searchTerm, type, sortCriteria);
+    setSelectedType(event.target.value);
   };
 
   const handleInputChange = (event) => {
@@ -39,14 +71,11 @@ function App() {
   };
 
   const handleSearch = () => {
-    const term = searchInput.toLowerCase();
-    setSearchTerm(term);
-    filterAndSortPokemon(term, selectedType, sortCriteria);
+    setSearchTerm(searchInput.toLowerCase());
   };
 
   const handleSortChange = (criteria) => {
     setSortCriteria(criteria);
-    filterAndSortPokemon(searchTerm, selectedType, criteria);
   };
 
   const filterAndSortPokemon = (term, type, sortBy) => {
@@ -60,22 +89,27 @@ function App() {
       result = result.filter(p => p.types.some(t => t.type.name === type));
     }
 
-    if (sortBy === "type") {
+    if (sortBy === 'type') {
       result.sort((a, b) => {
-        const typeA = a.types[0]?.type.name || "";
-        const typeB = b.types[0]?.type.name || "";
+        const typeA = a.types[0]?.type.name || '';
+        const typeB = b.types[0]?.type.name || '';
         return typeA.localeCompare(typeB);
       });
-    } else if (sortBy === "hp") {
-      result.sort((a, b) =>
+    } else if (sortBy === 'hp') {
+      result.sort((a, b) => (
         (b.stats.find(stat => stat.stat.name === 'hp')?.base_stat || 0) -
         (a.stats.find(stat => stat.stat.name === 'hp')?.base_stat || 0)
-      );
-    } else if (sortBy === "speed") {
-      result.sort((a, b) =>
+      ));
+    } else if (sortBy === 'speed') {
+      result.sort((a, b) => (
         (b.stats.find(stat => stat.stat.name === 'speed')?.base_stat || 0) -
         (a.stats.find(stat => stat.stat.name === 'speed')?.base_stat || 0)
-      );
+      ));
+    } else if (sortBy === 'favorites') {
+      result.sort((a, b) => (
+        (favorites.includes(b.id) ? 1 : 0) -
+        (favorites.includes(a.id) ? 1 : 0)
+      ));
     }
 
     setFilteredPokemon(result);
@@ -99,23 +133,29 @@ function App() {
 
       <div className="controls">
         <select onChange={handleTypeChange} value={selectedType}>
-          <option value="all">Alle Type's</option>
+          <option value="all">Alle Types</option>
           <option value="fire">Vuur</option>
           <option value="water">Water</option>
           <option value="grass">Gras</option>
         </select>
 
-        <select onChange={(e) => handleSortChange(e.target.value)} className="sort-dropdown" value={sortCriteria}>
+        <select onChange={(e) => handleSortChange(e.target.value)} value={sortCriteria} className="sort-dropdown">
           <option value="">Sorteer op...</option>
           <option value="type">Type</option>
           <option value="hp">HP</option>
           <option value="speed">Snelheid</option>
+          <option value="favorites">Favorieten</option>
         </select>
       </div>
 
       <div className="pokemon-grid">
         {filteredPokemon.map(p => (
-          <div className="pokemon-card" key={p.id}>
+          <div
+            key={p.id}
+            className={`pokemon-card ${favorites.includes(p.id) ? 'favorite' : ''}`}
+            onClick={() => toggleFavorite(p.id)}
+            style={{ cursor: 'pointer' }}
+          >
             <img src={p.sprites.front_default} alt={p.name} />
             <h2>{p.name}</h2>
             <p><strong>ID:</strong> {p.id}</p>
@@ -124,6 +164,7 @@ function App() {
             <p><strong>Type(s):</strong> {p.types.map(t => t.type.name).join(', ')}</p>
             <p><strong>HP:</strong> {p.stats.find(stat => stat.stat.name === 'hp').base_stat}</p>
             <p><strong>Snelheid:</strong> {p.stats.find(stat => stat.stat.name === 'speed').base_stat}</p>
+            {favorites.includes(p.id) && <p style={{ color: 'blue' }}><strong>★ Favoriet</strong></p>}
           </div>
         ))}
       </div>

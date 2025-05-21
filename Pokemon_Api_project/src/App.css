@@ -90,3 +90,8 @@ select {
   margin: 0.2rem 0;
   font-size: 0.95rem;
 }
+
+.pokemon-card.favorite {
+  border: 2px ;
+  background-color: #9df988;
+}
