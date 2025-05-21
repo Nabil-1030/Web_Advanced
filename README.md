@@ -1,72 +1,55 @@
-# Web_Advanced
-Pokemon_API
+# Pokémon API Webapp
 
-1. Projectbeschrijving:
+Een interactieve single-page webapplicatie gemaakt met **React** en **Vite**. Deze app maakt gebruik van de [PokéAPI](https://pokeapi.co/) om gegevens van Pokémon op te halen. Gebruikers kunnen Pokémon zoeken, filteren, sorteren en markeren als favoriet.
 
-Dit project is een interactieve single-page webapplicatie gemaakt met React en Vite. De applicatie gebruikt de PokéAPI om gegevens van Pokémon op te halen. Gebruikers kunnen Pokémon zoeken, filteren op type, sorteren op statistieken en details bekijken.
+---
 
-2. Functionaliteiten
-   
-- Zoeken op naam
-  Filteren op type (vuur, water, gras)
-  Sorteren op type, HP en snelheid
-  Weergave van Pokémon in overzichtelijke kaarten
-  Responsive layout
+## Functionaliteiten
 
-3. Gebruikte technologieën
+- Zoeken op naam  
+- Filteren op type (bijv. vuur, water, gras)  
+- Sorteren op type, HP en snelheid  
+- Weergave van Pokémon in overzichtelijke kaarten  
+- Favorieten markeren en bewaren via `localStorage`  
+- Responsive weergave voor verschillende schermformaten  
+- Single Page Applicatie (SPA) zonder reloads  
 
-   React (via Vite)
-   CSS (eigen stylesheet)
-   PokéAPI (https://pokeapi.co/)
-   Git & GitHub (versiebeheer)
+---
 
-4. PokéAPI
-   
-   URL: https://pokeapi.co/
-   Doel: Ophalen van Pokémongegevens (naam, type, stats, afbeelding, enz.)
+##  Gebruikte Technologieën
 
-5. Technische vereisten en waar te vinden
+- **React** (via [Vite](https://vitejs.dev/))  
+- **CSS** (eigen stylesheet)  
+- **PokéAPI** - [https://pokeapi.co/](https://pokeapi.co/)  
+- **Git & GitHub** - versiebeheer  
 
-    Vereiste	                   Beschrijving	                          Bestand/Lijn
+---
 
-  - API-gebruik	            Ophalen van data via PokéAPI	          App.jsx (regel ±8)
-  - Data filteren	            Filteren op type en zoekterm	          App.jsx (regel ±40–70)
-  - Sorteren van data	      Sorteren op type, HP en snelheid	       App.jsx (regel ±30–40, ±80–100)
-  - Single Page Applicatie  	Alles op 1 pagina, geen reloads	       App.jsx
+## PokéAPI
 
-6. Installatiehandleiding
+- **URL**: [https://pokeapi.co/](https://pokeapi.co/)  
+- **Doel**: Ophalen van Pokémon-gegevens zoals naam, type, stats en afbeeldingen.  
 
- a. Clone repository
+---
 
-    git clone https://github.com/Nabil-1030/Web_Advanced.git
-    cd pokemon_api_project
+## Technische vereisten
 
- b. Installeer afhankelijkheid
+| Vereiste                  | Beschrijving                                                        | Bestand/Lijn                     |
+|--------------------------|---------------------------------------------------------------------|----------------------------------|
+| API-gebruik              | Ophalen van data via PokéAPI                                       | `App.jsx` (± regel 8)            |
+| Data filteren            | Filteren op type en zoekterm                                       | `App.jsx` (± regel 40–70)        |
+| Sorteren van data        | Sorteren op type, HP en snelheid                                   | `App.jsx` (± regel 30–40, 80–100)|
+| Single Page Applicatie   | Alles op 1 pagina, geen reloads                                    | `App.jsx`                        |
+| Gebruik van LocalStorage | Bewaren van favorieten over sessies heen                           | `App.jsx` (± regel 12–30)        |
+| DOM-manipulatie          | Selecteren, aanpassen en events koppelen aan elementen             | `App.jsx`                        |
+| Modern JavaScript        | Gebruik van `const`, arrow functions, `map`, `filter`, `sort`, etc | `App.jsx`                        |
 
-    npm install
+---
 
- c. Start de applicatie
+##  Installatiehandleiding
 
-    npm run dev
+1. **Clone de repository**
 
- d. Open in jouw browser
-
-    http://localhost:5173     
-
-
-7. Commits & structuur
-
-   Dagelijkse commits met duidelijke commit messages
-   Elke nieuwe feature werd apart gecommit
-   Duidelijke mapstructuur (src/, App.jsx, App.css)
-
-8. Gebruikte bronnen
-
-- PokéAPI documentatie
-- React documentatie : https://react.dev/learn
-- Vite documentatie : https://devdocs.io/vite/guide/index
-- ChatGPT (hulp bij codeuitleg, fouten oplossen, schrijven van CSS)
-  - (https://chatgpt.com/share/6824e766-89b8-8011-bec2-3e473b887123)
-- Youtube: (https://www.youtube.com/watch?v=qabYnswX3FY)
-- Canvas: https://canvas.ehb.be/courses/39258
-- 
+```bash
+git clone https://github.com/Nabil-1030/Web_Advanced.git
+cd pokemon_api_project
